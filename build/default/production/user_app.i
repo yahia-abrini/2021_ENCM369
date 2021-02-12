@@ -27315,6 +27315,18 @@ void UserAppInitialize(void)
 # 95 "user_app.c"
 void UserAppRun(void)
 {
+    while(1)
+    {
+    u32 u32Counter = (u32)64000000/4/2;
 
+    LATA=LATA+0x01;
+    _delay((unsigned long)((250)*(16000000/4000.0)));
 
+    if(LATA==0xBF){
+        LATA=0x80;
+        break;
+
+    }
+
+    }
 }

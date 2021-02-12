@@ -94,8 +94,20 @@ Promises:
 */
 void UserAppRun(void)
 {
-
-
+    while(1)
+    {
+    u32 u32Counter = FCY/2;
+    
+    LATA=LATA+0x01;
+    __delay_ms(250);
+    
+    if(LATA==0xBF){
+        LATA=0x80;
+        break;
+ 
+    }
+    
+    }
 } /* end UserAppRun */
 
 
