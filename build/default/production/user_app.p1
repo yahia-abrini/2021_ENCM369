@@ -1,11 +1,10 @@
 Version 4.0 HI-TECH Software Intermediate Code
-"45585 C:/Program Files/Microchip/MPLABX/v5_45/packs/Microchip/PIC18F-Q_DFP/1.8.154/xc8\pic\include\proc\pic18f27q43.h
+"46157 C:/Program Files/Microchip/MPLABX/v5_45/packs/Microchip/PIC18F-Q_DFP/1.8.154/xc8\pic\include\proc\pic18f27q43.h
+[; ;C:/Program Files/Microchip/MPLABX/v5_45/packs/Microchip/PIC18F-Q_DFP/1.8.154/xc8\pic\include\proc\pic18f27q43.h: 46157: extern volatile unsigned char PORTB __attribute__((address(0x4CF)));
+[v _PORTB `Vuc ~T0 @X0 0 e@1231 ]
+"45585
 [; ;C:/Program Files/Microchip/MPLABX/v5_45/packs/Microchip/PIC18F-Q_DFP/1.8.154/xc8\pic\include\proc\pic18f27q43.h: 45585: extern volatile unsigned char LATA __attribute__((address(0x4BE)));
 [v _LATA `Vuc ~T0 @X0 0 e@1214 ]
-[v F183 `(v ~T0 @X0 1 tf1`ul ]
-"12 C:/Program Files/Microchip/MPLABX/v5_45/packs/Microchip/PIC18F-Q_DFP/1.8.154/xc8\pic\include\builtins.h
-[v __delay `JF183 ~T0 @X0 0 e ]
-[p i __delay ]
 "30 ./configuration.h
 [p x FEXTOSC  =  OFF     ]
 "31
@@ -2557,36 +2556,62 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;user_app.c: 98:     {
 {
 "99
-[; ;user_app.c: 99:     u32 u32Counter = (u32)64000000/4/2;
+[; ;user_app.c: 99:         u32 u32Counter = (u32)64000000/4/2;
 [v _u32Counter `ul ~T0 @X0 1 a ]
 [e = _u32Counter / / -> -> 64000000 `l `ul -> -> -> 4 `i `l `ul -> -> -> 2 `i `l `ul ]
-"101
-[; ;user_app.c: 101:     LATA=LATA+0x01;
-[e = _LATA -> + -> _LATA `i -> 1 `i `uc ]
+"100
+[; ;user_app.c: 100:         int button;
+[v _button `i ~T0 @X0 1 a ]
 "102
-[; ;user_app.c: 102:     _delay((unsigned long)((250)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"104
-[; ;user_app.c: 104:     if(LATA==0xBF){
-[e $ ! == -> _LATA `i -> 191 `i 2277  ]
+[; ;user_app.c: 102:         if(PORTB==0x10)
+[e $ ! == -> _PORTB `i -> 16 `i 2277  ]
+"103
+[; ;user_app.c: 103:         {
 {
+"104
+[; ;user_app.c: 104:             button = 0;
+[e = _button -> 0 `i ]
 "105
-[; ;user_app.c: 105:         LATA=0x80;
-[e = _LATA -> -> 128 `i `uc ]
-"106
-[; ;user_app.c: 106:         break;
-[e $U 2276  ]
-"108
-[; ;user_app.c: 108:     }
+[; ;user_app.c: 105:         }
 }
 [e :U 2277 ]
+"107
+[; ;user_app.c: 107:         if(PORTB==0x30&&button==0)
+[e $ ! && == -> _PORTB `i -> 48 `i == _button -> 0 `i 2278  ]
+"108
+[; ;user_app.c: 108:         {
+{
+"109
+[; ;user_app.c: 109:             button = 1;
+[e = _button -> 1 `i ]
 "110
-[; ;user_app.c: 110:     }
+[; ;user_app.c: 110:             LATA=LATA+0x01;
+[e = _LATA -> + -> _LATA `i -> 1 `i `uc ]
+"111
+[; ;user_app.c: 111:             if(LATA==0xBF){
+[e $ ! == -> _LATA `i -> 191 `i 2279  ]
+{
+"112
+[; ;user_app.c: 112:                 LATA=0x80;
+[e = _LATA -> -> 128 `i `uc ]
+"113
+[; ;user_app.c: 113:                 break;
+[e $U 2276  ]
+"114
+[; ;user_app.c: 114:             }
+}
+[e :U 2279 ]
+"115
+[; ;user_app.c: 115:         }
+}
+[e :U 2278 ]
+"116
+[; ;user_app.c: 116:     }
 }
 [e :U 2274 ]
 [e $U 2275  ]
 [e :U 2276 ]
-"111
-[; ;user_app.c: 111: }
+"117
+[; ;user_app.c: 117: }
 [e :UE 2273 ]
 }

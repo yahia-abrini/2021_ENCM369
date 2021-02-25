@@ -96,18 +96,24 @@ void UserAppRun(void)
 {
     while(1)
     {
-    u32 u32Counter = FCY/2;
-    
-    LATA=LATA+0x01;
-    __delay_ms(250);
-    
-    if(LATA==0xBF){
-        LATA=0x80;
-        break;
- 
-    }
-    
-    }
+        u32 u32Counter = FCY/2;
+        int button;
+
+        if(PORTB==0x10)
+        {
+            button = 0;
+        }
+
+        if(PORTB==0x30&&button==0)
+        {
+            button = 1;
+            LATA=LATA+0x01;
+            if(LATA==0xBF){
+                LATA=0x80;
+                break;
+            }
+        }
+    }    
 } /* end UserAppRun */
 
 

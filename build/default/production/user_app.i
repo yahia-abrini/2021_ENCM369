@@ -27286,7 +27286,7 @@ void SystemSleep(void);
 
 
 # 1 "./user_app.h" 1
-# 27 "./user_app.h"
+# 26 "./user_app.h"
 void UserAppInitialize(void);
 void UserAppRun(void);
 # 106 "./configuration.h" 2
@@ -27317,16 +27317,22 @@ void UserAppRun(void)
 {
     while(1)
     {
-    u32 u32Counter = (u32)64000000/4/2;
+        u32 u32Counter = (u32)64000000/4/2;
+        int button;
 
-    LATA=LATA+0x01;
-    _delay((unsigned long)((250)*(16000000/4000.0)));
+        if(PORTB==0x10)
+        {
+            button = 0;
+        }
 
-    if(LATA==0xBF){
-        LATA=0x80;
-        break;
-
-    }
-
+        if(PORTB==0x30&&button==0)
+        {
+            button = 1;
+            LATA=LATA+0x01;
+            if(LATA==0xBF){
+                LATA=0x80;
+                break;
+            }
+        }
     }
 }
