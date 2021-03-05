@@ -102,32 +102,37 @@ void UserAppRun(void)
 {
     while(1)
     {
-    /* Read LATA to a temporary variable */
-    u32 u32Temporary = LATA; 
+    /* Initialize u8 pattern array, and index variable */
+    u8 au8Pattern[6] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20};
+    static int intIndex;
     
     /* initializing and incrementing static u16 variable */
-    static u16 u16Static = u16Static + 0x0001;
-    if(u16Static==500){
-        u16Static = 0x0000;
-    }
+    static u16 u16Static;
+    u16Static = u16Static + 0x0001;
     
-    u8 au8Pattern[0x01, 0x02, 0x04, 0x08, 0x10, 0x20];
 
+    if(u16Static==500){
+        /* Reset delay */ 
+        u16Static = 0x0000;
+        
+        /* Read LATA to a temporary variable */ 
+        u8 u8Temporary = LATA; 
+        
+        /* Use a bitmask and bitwise operation to clear the 6 LSBs */
+        u8Temporary &= 0x80; 
     
-    /* Use a bitmask and bitwise operation to clear the 6 LSBs */
-    u32Temporary = u32Temporary & 0x000000c0; 
+        /* Use a bitwise operation to update the 6 LSBs to the new value you want */
+        u8Temporary = 0x80 | au8Pattern[intIndex];
     
-    /* Use a bitwise operation to update the 6 LSBs to the new value you want */
-    u32Temporary = u32Temporary + 0x00000001;
-    
-    /* Write the temporary variable back to LATA */
-    LATA = u32Temporary;
-    
-    if(LATA==0xBF){
-        LATA=0x80;
-        break;
- 
+        /* Write the temporary variable back to LATA */
+        LATA = u8Temporary;
+       
+        intIndex++;
+        if(intIndex==6){
+            intIndex=0;
+        }
     }
+    
     
     }
 } /* end UserAppRun */
@@ -145,18 +150,18 @@ Promises:
 - TMR0IF cleared
 - Timer0 enabled
 */
-void TimeXus(INPUT_PARAMETER_)
+void TimeXus(u16 u16Input)
 {
     /* Disable the timer during config */
-    T0CON0 = T0CON0 ^ 0x80;
+    T0CON0 &= 0x7F;
     
     /* Preload TMR0H and TMR0L based on u16TimeXus */
-    TMR0H = (2^16 - INPUT_PARAMETER_) & 0xf0;
-    TMR0L = (2^16 - INPUT_PARAMETER_) & 0x0f;
+    TMR0H = (u8)(((0xffff - u16Input) & 0xff00)>>8);
+    TMR0L = (u8)((0xffff - u16Input) & 0x00ff);
     
     /* Clear TMR0IF and enable Timer 0 */
-    PIR3 = PIR3 ^ 0x80;
-    T0CON0 = T0CON0 ^ 0x80;
+    PIR3 &= 0x7F;
+    T0CON0 |= 0x80;
     
 } /* end TimeXus () */
 

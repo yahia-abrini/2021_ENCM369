@@ -27286,7 +27286,9 @@ void SystemSleep(void);
 
 
 # 1 "./user_app.h" 1
-# 27 "./user_app.h"
+# 17 "./user_app.h"
+void TimeXus(u16 u16Input);
+# 26 "./user_app.h"
 void UserAppInitialize(void);
 void UserAppRun(void);
 # 106 "./configuration.h" 2
@@ -27310,23 +27312,65 @@ extern volatile u32 G_u32SystemFlags;
 void UserAppInitialize(void)
 {
 
+    LATA = 0x80;
+
+
+
+    T0CON0 = 0x90;
+    T0CON1 = 0x54;
 
 }
-# 95 "user_app.c"
+# 101 "user_app.c"
 void UserAppRun(void)
 {
     while(1)
     {
-    u32 u32Counter = (u32)64000000/4/2;
 
-    LATA=LATA+0x01;
-    _delay((unsigned long)((250)*(16000000/4000.0)));
+    u8 au8Pattern[6] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20};
+    static int intIndex;
 
-    if(LATA==0xBF){
-        LATA=0x80;
-        break;
 
+    static u16 u16Static;
+    u16Static = u16Static + 0x0001;
+
+
+    if(u16Static==500){
+
+        u16Static = 0x0000;
+
+
+        u8 u8Temporary = LATA;
+
+
+        u8Temporary &= 0x80;
+
+
+        u8Temporary = 0x80 | au8Pattern[intIndex];
+
+
+        LATA = u8Temporary;
+
+        intIndex++;
+        if(intIndex==6){
+            intIndex=0;
+        }
     }
 
+
     }
+}
+# 153 "user_app.c"
+void TimeXus(u16 u16Input)
+{
+
+    T0CON0 &= 0x7F;
+
+
+    TMR0H = (u8)(((0xffff - u16Input) & 0xff00)>>8);
+    TMR0L = (u8)((0xffff - u16Input) & 0x00ff);
+
+
+    PIR3 &= 0x7F;
+    T0CON0 |= 0x80;
+
 }

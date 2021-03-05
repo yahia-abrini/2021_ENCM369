@@ -39,11 +39,22 @@
 [v _main main `(v  1 e 1 0 ]
 "76 C:\Github\yahia-abrini\user_app.c
 [v _UserAppInitialize UserAppInitialize `(v  1 e 1 0 ]
-"95
+"101
 [v _UserAppRun UserAppRun `(v  1 e 1 0 ]
-"37918 C:/Program Files/Microchip/MPLABX/v5_45/packs/Microchip/PIC18F-Q_DFP/1.8.154/xc8\pic\include\proc\pic18f27q43.h
+"153
+[v _TimeXus TimeXus `(v  1 e 1 0 ]
+"22235 C:/Program Files/Microchip/MPLABX/v5_45/packs/Microchip/PIC18F-Q_DFP/1.8.154/xc8\pic\include\proc\pic18f27q43.h
+[v _TMR0L TMR0L `VEuc  1 e 1 @792 ]
+"22373
+[v _TMR0H TMR0H `VEuc  1 e 1 @793 ]
+"22627
+[v _T0CON0 T0CON0 `VEuc  1 e 1 @794 ]
+"22725
+[v _T0CON1 T0CON1 `VEuc  1 e 1 @795 ]
 "37918
 [v _ANSELA ANSELA `VEuc  1 e 1 @1024 ]
+"44870
+[v _PIR3 PIR3 `VEuc  1 e 1 @1201 ]
 "45585
 [v _LATA LATA `VEuc  1 e 1 @1214 ]
 "45840
@@ -59,17 +70,33 @@
 "35 C:\Github\yahia-abrini\main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"67
+"69
 } 0
-"95 C:\Github\yahia-abrini\user_app.c
+"101 C:\Github\yahia-abrini\user_app.c
 [v _UserAppRun UserAppRun `(v  1 e 1 0 ]
 {
-"111
+"119
+[v UserAppRun@u8Temporary u8Temporary `uc  1 a 1 6 ]
+"106
+[v UserAppRun@au8Pattern au8Pattern `[6]uc  1 a 6 0 ]
+"104
+[v UserAppRun@F15922 F15922 `[6]uc  1 s 6 F15922 ]
+"107
+[v UserAppRun@intIndex intIndex `i  1 s 2 intIndex ]
+"110
+[v UserAppRun@u16Static u16Static `us  1 s 2 u16Static ]
+"138
 } 0
 "76
 [v _UserAppInitialize UserAppInitialize `(v  1 e 1 0 ]
 {
-"80
+"86
+} 0
+"153
+[v _TimeXus TimeXus `(v  1 e 1 0 ]
+{
+[v TimeXus@u16Input u16Input `us  1 p 2 0 ]
+"166
 } 0
 "131 C:\Github\yahia-abrini\encm369_pic18.c
 [v _SystemSleep SystemSleep `(v  1 e 1 0 ]
