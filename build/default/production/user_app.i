@@ -27286,11 +27286,10 @@ void SystemSleep(void);
 
 
 # 1 "./user_app.h" 1
-# 17 "./user_app.h"
-void TimeXus(u16 u16Input);
 # 26 "./user_app.h"
 void UserAppInitialize(void);
 void UserAppRun(void);
+void TimeXus(u16 u16Input);
 # 106 "./configuration.h" 2
 # 26 "user_app.c" 2
 
@@ -27320,18 +27319,32 @@ void UserAppInitialize(void)
     T0CON1 = 0x54;
 
 }
-# 101 "user_app.c"
+# 99 "user_app.c"
+void TimeXus(u16 u16Input)
+{
+
+    T0CON0 &= 0x7F;
+
+
+    TMR0H = (u8)(((0xffff - u16Input) & 0xff00)>>8);
+    TMR0L = (u8)((0xffff - u16Input) & 0x00ff);
+
+
+    PIR3 &= 0x7F;
+    T0CON0 |= 0x80;
+
+}
+# 127 "user_app.c"
 void UserAppRun(void)
 {
-    while(1)
-    {
+
 
     u8 au8Pattern[6] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20};
     static int intIndex;
 
 
     static u16 u16Static;
-    u16Static = u16Static + 0x0001;
+    u16Static++;
 
 
     if(u16Static==500){
@@ -27345,7 +27358,7 @@ void UserAppRun(void)
         u8Temporary &= 0x80;
 
 
-        u8Temporary = 0x80 | au8Pattern[intIndex];
+        u8Temporary = 0x00 | au8Pattern[intIndex];
 
 
         LATA = u8Temporary;
@@ -27356,21 +27369,5 @@ void UserAppRun(void)
         }
     }
 
-
-    }
-}
-# 153 "user_app.c"
-void TimeXus(u16 u16Input)
-{
-
-    T0CON0 &= 0x7F;
-
-
-    TMR0H = (u8)(((0xffff - u16Input) & 0xff00)>>8);
-    TMR0L = (u8)((0xffff - u16Input) & 0x00ff);
-
-
-    PIR3 &= 0x7F;
-    T0CON0 |= 0x80;
 
 }

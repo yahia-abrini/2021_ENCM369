@@ -85,60 +85,6 @@ void UserAppInitialize(void)
     
 } /* end UserAppInitialize() */
 
-  
-/*!----------------------------------------------------------------------------------------------------------------------
-@fn void UserAppRun(void)
-
-@brief Application code that runs once per system loop
-
-Requires:
-- 
-
-Promises:
-- 
-
-*/
-void UserAppRun(void)
-{
-    while(1)
-    {
-    /* Initialize u8 pattern array, and index variable */
-    u8 au8Pattern[6] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20};
-    static int intIndex;
-    
-    /* initializing and incrementing static u16 variable */
-    static u16 u16Static;
-    u16Static = u16Static + 0x0001;
-    
-
-    if(u16Static==500){
-        /* Reset delay */ 
-        u16Static = 0x0000;
-        
-        /* Read LATA to a temporary variable */ 
-        u8 u8Temporary = LATA; 
-        
-        /* Use a bitmask and bitwise operation to clear the 6 LSBs */
-        u8Temporary &= 0x80; 
-    
-        /* Use a bitwise operation to update the 6 LSBs to the new value you want */
-        u8Temporary = 0x80 | au8Pattern[intIndex];
-    
-        /* Write the temporary variable back to LATA */
-        LATA = u8Temporary;
-       
-        intIndex++;
-        if(intIndex==6){
-            intIndex=0;
-        }
-    }
-    
-    
-    }
-} /* end UserAppRun */
-
-
-
 /*--------------------------------------------------------------------
 void TimeXus(INPUT_PARAMETER_)
 Sets Timer0 to count u16Microseconds_
@@ -164,6 +110,59 @@ void TimeXus(u16 u16Input)
     T0CON0 |= 0x80;
     
 } /* end TimeXus () */
+
+
+/*!----------------------------------------------------------------------------------------------------------------------
+@fn void UserAppRun(void)
+
+@brief Application code that runs once per system loop
+
+Requires:
+- 
+
+Promises:
+- 
+
+*/
+void UserAppRun(void)
+{
+
+    /* Initialize u8 pattern array, and index variable */
+    u8 au8Pattern[6] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20};
+    static int intIndex;
+    
+    /* initializing and incrementing static u16 variable */
+    static u16 u16Static;
+    u16Static++;
+    
+
+    if(u16Static==500){
+        /* Reset delay */ 
+        u16Static = 0x0000;
+        
+        /* Read LATA to a temporary variable */ 
+        u8 u8Temporary = LATA; 
+        
+        /* Use a bitmask and bitwise operation to clear the 6 LSBs */
+        u8Temporary &= 0x80; 
+    
+        /* Use a bitwise operation to update the 6 LSBs to the new value you want */
+        u8Temporary = 0x00 | au8Pattern[intIndex];
+    
+        /* Write the temporary variable back to LATA */
+        LATA = u8Temporary;
+       
+        intIndex++;
+        if(intIndex==6){
+            intIndex=0;
+        }
+    }
+    
+    
+} /* end UserAppRun */
+
+
+
 
 /*------------------------------------------------------------------------------------------------------------------*/
 /*! @privatesection */                                                                                            

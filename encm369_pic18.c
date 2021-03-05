@@ -91,6 +91,8 @@ void GpioSetup(void)
     LATA = 0x80;
     ANSELA = 0x00;
     TRISA = 0x00;
+    PORTA = 0x00;
+
 } /* end GpioSetup() */
 
 
