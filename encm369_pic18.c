@@ -88,10 +88,12 @@ Promises:
 */
 void GpioSetup(void)
 {
-    LATA = 0x80;
+    /* Setup PORTA for all digital output */
     ANSELA = 0x00;
     TRISA = 0x00;
-    PORTA = 0x00;
+    
+    /* Configure DAC1 for Vdd and Vss references, on, and RA2 output. */
+    DAC1CON = 0xa0;
 
 } /* end GpioSetup() */
 
@@ -110,6 +112,7 @@ Promises:
 */
 void SysTickSetup(void)
 {
+  /* modify system tick time */
   G_u32SystemTime1ms = 0;      
   G_u32SystemTime1s  = 0;   
   

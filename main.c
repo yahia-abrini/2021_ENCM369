@@ -56,14 +56,14 @@ void main(void)
     /* Applications */
     UserAppRun();
    
-     
-    /* System sleep */
+#if 1
     HEARTBEAT_OFF();
     SystemSleep();
-    TimeXus(1000);
-    while(PIR3!=0x80){}; /* wait for 1ms to end */
+    TimeXus(10);
+    while(0x80!=(PIR3 & 0x80)); 
     HEARTBEAT_ON();
     
+#endif
   } /* end while(1) main super loop */
   
 } /* end main() */
